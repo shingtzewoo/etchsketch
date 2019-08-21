@@ -1,9 +1,27 @@
 <html>
     <head>
         <title>Etch a Sketch</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
-    <body>  
+    <body>
         <div class="container">
         </div>
+        <script>
+            const container = document.querySelector('.container');
+            container.setAttribute('style', 'display: grid; grid-template-columns: repeat(16, 1fr); grid-template-rows: repeat(16, 1fr)');
+
+            //change into a function later that takes in value of the number of boxes from the prompt asked
+            for (let i = 0; i <= 256; i++) {
+                let box = document.createElement('div');
+                box.classList.add('box')
+                box.setAttribute('style', 'height: auto; width: auto; border: 1px black solid');
+                container.appendChild(box);
+            }
+            
+            const boxes = document.querySelectorAll('.box');
+            boxes.forEach(box => box.addEventListener('mouseover', function(e) {
+                e.target.style.background = 'blue';
+            }));
+        </script>
     </body>
 </html>
