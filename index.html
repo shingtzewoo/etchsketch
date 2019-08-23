@@ -4,24 +4,45 @@
         <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
     <body>
-        <div class="container">
-        </div>
+        <section id="control">
+            <button>Clear</button>
+        </section>
+        <section id="canvas">
+            <div class="container"></div>
+        </section>
         <script>
-            const container = document.querySelector('.container');
-            container.setAttribute('style', 'display: grid; grid-template-columns: repeat(16, 1fr); grid-template-rows: repeat(16, 1fr)');
+            let value = 16;
+            let totalvalue = value*value;
 
-            //change into a function later that takes in value of the number of boxes from the prompt asked
-            for (let i = 0; i <= 256; i++) {
-                let box = document.createElement('div');
-                box.classList.add('box')
-                box.setAttribute('style', 'height: auto; width: auto; border: 1px black solid');
-                container.appendChild(box);
-            }
-            
             const boxes = document.querySelectorAll('.box');
-            boxes.forEach(box => box.addEventListener('mouseover', function(e) {
-                e.target.style.background = 'blue';
-            }));
+            const button = document.querySelector('button');
+            const container = document.querySelector('.container');
+            container.setAttribute('style', `display: grid; grid-template-columns: repeat(16, 1fr); grid-template-rows: repeat(16, 1fr)`);
+
+            function reset () {
+                value = prompt('How many squares would you like per side for your canvas?');
+                value = parseInt(value, 10);
+            }
+
+            function gridMaker () {
+                container.setAttribute('style', `display: grid; grid-template-columns: repeat(${value}, 1fr); grid-template-rows: repeat(${value}, 1fr)`);
+                for (let i = 0; i <= totalvalue; i++) {
+                    let box = document.createElement('div');
+                    box.classList.add('box');
+                    box.setAttribute('style', 'height: auto; width: auto');
+                    container.appendChild(box);
+                };
+            };
+
+            //not working
+            function colorMaker(e) {
+                e.target.style.background = 'blue'
+            }
+
+            boxes.forEach((box) => box.addEventListener('mouseover',colorMaker))
+
+            button.addEventListener('click', reset);
+            button.addEventListener('click', gridMaker);
         </script>
     </body>
 </html>
