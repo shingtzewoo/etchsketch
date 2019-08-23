@@ -17,7 +17,12 @@
             const boxes = document.querySelectorAll('.box');
             const button = document.querySelector('button');
             const container = document.querySelector('.container');
-            container.setAttribute('style', `display: grid; grid-template-columns: repeat(16, 1fr); grid-template-rows: repeat(16, 1fr)`);
+            
+            function containerSetter() {
+                container.setAttribute('style', `display: grid; grid-template-columns: repeat(${value}, 1fr); grid-template-rows: repeat(${value}, 1fr)`);
+            }
+
+            containerSetter();
 
             function reset () {
                 value = prompt('How many squares would you like per side for your canvas?');
@@ -25,7 +30,7 @@
             }
 
             function gridMaker () {
-                container.setAttribute('style', `display: grid; grid-template-columns: repeat(${value}, 1fr); grid-template-rows: repeat(${value}, 1fr)`);
+                containerSetter();
                 for (let i = 0; i <= totalvalue; i++) {
                     let box = document.createElement('div');
                     box.classList.add('box');
