@@ -6,17 +6,20 @@
     <body>
         <section id="control">
             <button>Clear</button>
+            <button>Rainbow</button>
+            <button>Black</button>
         </section>
         <section id="canvas">
             <div class="container"></div>
         </section>
         <script>
-            let value = 16;
-            let totalvalue = value*value;
+            let value = 16; //initial number for grid columns and rows
+            let totalvalue = value*value; //initial total number for number of boxes created
             const button = document.querySelector('button');
             const container = document.querySelector('.container');
 
             function colorMaker(e) {
+                
                 let r = Math.random()*255;
                 let g = Math.random()*255;
                 let b = Math.random()*255;
@@ -29,7 +32,7 @@
                 container.setAttribute('style', `display: grid; grid-template-columns: repeat(${value}, 1fr); grid-template-rows: repeat(${value}, 1fr)`);
             }
 
-            containerSetter(); //initialize first grid
+            containerSetter(); //initialize default grid
             
             function boxCreate() {
                 for (let i = 0; i < totalvalue; i++) {
@@ -40,7 +43,7 @@
                 };
             }
 
-            boxCreate(); //initialize first boxes
+            boxCreate(); //initialize default boxes
             let boxes = document.querySelectorAll('.box'); //create box element for reset function to refer to
 
             function reset () {
@@ -48,6 +51,9 @@
                    box.parentNode.removeChild(box);
                 });
                 value = prompt('How many squares would you like per side for your canvas?');
+                while (!value || value === null || isNaN(value) === true) {
+                    value = prompt('Wrong input, how many squares would you like per side for your canvas? Please choose a number.');
+                } 
                 value = parseInt(value, 10);
                 totalvalue = value*value;
             }
