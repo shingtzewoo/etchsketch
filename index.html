@@ -17,41 +17,50 @@
             const container = document.querySelector('.container');
 
             function colorMaker(e) {
-                e.target.style.backgroundColor = 'blue';
+                let r = Math.random()*255;
+                let g = Math.random()*255;
+                let b = Math.random()*255;
+                if (e.target && e.target.className == 'box') {
+                    e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+                };
             }
             
             function containerSetter() {
                 container.setAttribute('style', `display: grid; grid-template-columns: repeat(${value}, 1fr); grid-template-rows: repeat(${value}, 1fr)`);
             }
 
-            containerSetter();
-
-            function reset () {
-                value = prompt('How many squares would you like per side for your canvas?');
-                value = parseInt(value, 10);
-                //add method to remove all divs from the container, so new divs can enter
-            }
-
-            //when using the clear button: setting the amount of divs, old divs get pushed down (so the board doesn't actually "clear" out old divs).
-            //additionally, eventlistener only works for certain divs and color does not get cleared from the board
-            function gridMaker () {
-                containerSetter();
-                for (let i = 0; i <= totalvalue; i++) {
+            containerSetter(); //initialize first grid
+            
+            function boxCreate() {
+                for (let i = 0; i < totalvalue; i++) {
                     let box = document.createElement('div');
                     box.classList.add('box');
                     box.setAttribute('style', 'height: auto; width: auto');
                     container.appendChild(box);
                 };
-            };
+            }
 
-            gridMaker();
+            boxCreate(); //initialize first boxes
+            let boxes = document.querySelectorAll('.box'); //create box element for reset function to refer to
+
+            function reset () {
+                boxes.forEach((box) => {
+                   box.parentNode.removeChild(box);
+                });
+                value = prompt('How many squares would you like per side for your canvas?');
+                value = parseInt(value, 10);
+                totalvalue = value*value;
+            }
+
+            function gridMaker () {
+                containerSetter();
+                boxCreate();
+                boxes = document.querySelectorAll('.box')
+            };
 
             button.addEventListener('click', reset);
             button.addEventListener('click', gridMaker);
-
-
-            const boxes = document.querySelectorAll('.box');
-            boxes.forEach((box) => box.addEventListener('mouseover',colorMaker))
+            container.addEventListener('mouseover', colorMaker);
         </script>
     </body>
 </html>
