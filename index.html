@@ -13,10 +13,12 @@
         <script>
             let value = 16;
             let totalvalue = value*value;
-
-            const boxes = document.querySelectorAll('.box');
             const button = document.querySelector('button');
             const container = document.querySelector('.container');
+
+            function colorMaker(e) {
+                e.target.style.backgroundColor = 'blue';
+            }
             
             function containerSetter() {
                 container.setAttribute('style', `display: grid; grid-template-columns: repeat(${value}, 1fr); grid-template-rows: repeat(${value}, 1fr)`);
@@ -27,8 +29,11 @@
             function reset () {
                 value = prompt('How many squares would you like per side for your canvas?');
                 value = parseInt(value, 10);
+                //add method to remove all divs from the container, so new divs can enter
             }
 
+            //when using the clear button: setting the amount of divs, old divs get pushed down (so the board doesn't actually "clear" out old divs).
+            //additionally, eventlistener only works for certain divs and color does not get cleared from the board
             function gridMaker () {
                 containerSetter();
                 for (let i = 0; i <= totalvalue; i++) {
@@ -39,15 +44,14 @@
                 };
             };
 
-            //not working
-            function colorMaker(e) {
-                e.target.style.background = 'blue'
-            }
-
-            boxes.forEach((box) => box.addEventListener('mouseover',colorMaker))
+            gridMaker();
 
             button.addEventListener('click', reset);
             button.addEventListener('click', gridMaker);
+
+
+            const boxes = document.querySelectorAll('.box');
+            boxes.forEach((box) => box.addEventListener('mouseover',colorMaker))
         </script>
     </body>
 </html>
