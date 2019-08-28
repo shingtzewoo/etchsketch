@@ -5,9 +5,9 @@
     </head>
     <body>
         <section id="control">
-            <button>Clear</button>
-            <button>Rainbow</button>
-            <button>Black</button>
+            <button id="clear">Clear</button>
+            <button id="rainbow">Rainbow</button>
+            <button id="black">Black</button>
         </section>
         <section id="canvas">
             <div class="container"></div>
@@ -15,16 +15,23 @@
         <script>
             let value = 16; //initial number for grid columns and rows
             let totalvalue = value*value; //initial total number for number of boxes created
-            const button = document.querySelector('button');
+            const clear = document.getElementById('clear');
+            const black = document.getElementById('black');
+            const rainbow = document.getElementById('rainbow');
             const container = document.querySelector('.container');
 
-            function colorMaker(e) {
-                
+            function rainbowMaker(e) {
                 let r = Math.random()*255;
                 let g = Math.random()*255;
                 let b = Math.random()*255;
                 if (e.target && e.target.className == 'box') {
                     e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+                };
+            }
+
+            function blackMaker(e) {
+                if (e.target && e.target.className == 'box') {
+                    e.target.style.backgroundColor = 'black';
                 };
             }
             
@@ -61,12 +68,19 @@
             function gridMaker () {
                 containerSetter();
                 boxCreate();
-                boxes = document.querySelectorAll('.box')
+                boxes = document.querySelectorAll('.box');
             };
 
-            button.addEventListener('click', reset);
-            button.addEventListener('click', gridMaker);
-            container.addEventListener('mouseover', colorMaker);
+            clear.addEventListener('click', reset);
+            clear.addEventListener('click', gridMaker);
+            container.addEventListener('mouseover', blackMaker);
+            //when rainbow button is pressed, even if the black button is pressed, the divs won't be colored black
+            black.addEventListener('click', function() {
+                container.addEventListener('mouseover', blackMaker);
+            });
+            rainbow.addEventListener('click', function() {
+                container.addEventListener('mouseover', rainbowMaker);
+            });
         </script>
     </body>
 </html>
