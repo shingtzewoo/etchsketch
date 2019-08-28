@@ -41,6 +41,7 @@
 
             containerSetter(); //initialize default grid
             
+            //to create divs
             function boxCreate() {
                 for (let i = 0; i < totalvalue; i++) {
                     let box = document.createElement('div');
@@ -51,7 +52,7 @@
             }
 
             boxCreate(); //initialize default boxes
-            let boxes = document.querySelectorAll('.box'); //create box element for reset function to refer to
+            let boxes = document.querySelectorAll('.box'); //create box element for reset and gridmaker function to refer to
 
             function reset () {
                 boxes.forEach((box) => {
@@ -71,14 +72,21 @@
                 boxes = document.querySelectorAll('.box');
             };
 
+            //for clearing the board
             clear.addEventListener('click', reset);
             clear.addEventListener('click', gridMaker);
+
+            //default color for etch sketch
             container.addEventListener('mouseover', blackMaker);
+
             //when rainbow button is pressed, even if the black button is pressed, the divs won't be colored black
+            //changes the color of the 'sketch' according to the button pressed
             black.addEventListener('click', function() {
+                container.removeEventListener('mouseover', rainbowMaker);
                 container.addEventListener('mouseover', blackMaker);
             });
             rainbow.addEventListener('click', function() {
+                container.removeEventListener('mouseover', blackMaker);
                 container.addEventListener('mouseover', rainbowMaker);
             });
         </script>
